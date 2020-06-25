@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Lab_05_Jquery</title>
+	<style>
+		form{
+			margin: 20px 0;
+		}
+		form input, button{
+			padding: 5px;
+		}
+		table{
+			
+			margin-bottom: 20px;
+			border-collapse: collapse;
+		}
+		table td{
+			border-bottom: 1px solid black;
+			padding: 5px;
+			font-weight: bold;
+			font-family: arial;
+		}
+		.black ,.black-none-right{
+			border-left: 1px solid black;
+
+		}
+		
+		.black-none-right{
+			border-bottom: #fff;
+			border-left: 1px solid black;
+		}
+		.black-none-left{
+			border-bottom: #fff;
+		}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+
+	<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	
+	  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	  <script>
+	  		$(document).ready(function(){
+	  			function isEmail(emailStr){
+	  				var pattern = /^[a-zA-Z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4})$/;
+	  				return pattern.test(emailStr);
+	  			}
+	  			$(function(){
+	  				$('#name_error').dialog({
+	  					autoOpen: false,
+		  				hide: "puff",
+		  				show: "slide",
+		  				height: 200
+	  				});
+	  				$('#pass_error').dialog({
+	  					autoOpen: false,
+		  				hide: "puff",
+		  				show: "slideDown",
+		  				height: 200
+	  				});
+	  				$('#re_pass_error').dialog({
+	  					autoOpen: false,
+		  				hide: "puff",
+		  				show: "slide",
+		  				height: 200
+	  				});
+	  				$('#email_error').dialog({
+	  					autoOpen: false,
+		  				hide: "puff",
+		  				show: "slide",
+		  				height: 200
+	  				});
+	  			});
+
+	  			$('#form-register').submit(function(event){
+	  				var username = $.trim($('#name').val());
+	  				var password = $.trim($('#pass').val());
+	  				var repeatPass = $.trim($('#repeatPass').val());
+	  				var email = $.trim($('#email').val());
+	  				var phone = $.trim($('#phone').val());
+	  				var address = $.trim($('#address').val());
+
+	  				if(username == '' || username.length <= 4){
+	  					$('#name_error' ).dialog('open');
+	  					event.preventDefault();
+	  				}
+
+	  				else if(password == ''){
+	  					$('#pass_error').dialog('open');
+	  					event.preventDefault();
+	  				}
+
+	  				else if(repeatPass != password){
+	  					$('#re_pass_error').dialog('open');
+	  					event.preventDefault();
+	  				}
+
+	  				else if(email == '' || !isEmail(email)){
+	  					$('#email_error').dialog('open');
+	  					event.preventDefault();
+	  				}
+
+	  			});
+	  		});
+	  </script>
+</head>
+<body>
+	<header></header>
+	<main>
+		<form action="javascript:alert('Đăng ký thành công')" id="form-register" method="POST">
+			<table>
+				<tr>
+					<td>Tên đăng nhập:</td>
+					<td class="black"><input type="text" id="name" name="name" value=""></td>
+					<td>
+						<div id="name_error" title="Thông báo">
+							Tên đăng nhập không được để trống hoặc lớn hơn 4 ký tự. Vui lòng thử lại !
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Mật khẩu:</td>
+					<td class="black"><input type="password" id="pass" name="pass" value=""></td>
+					<td>
+						<div id="pass_error" title="Thông báo">
+							Mật khẩu không được để trống. Vui lòng thử lại !
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Nhập lại mật khẩu:</td>
+					<td class="black"><input type="password" id="repeatPass" name="repeatPass" value=""></td>
+					<td>
+						<div id="re_pass_error" title="Thông báo">
+							Mật khẩu nhập lại không đúng. Vui lòng thử lại !
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Email:</td>
+					<td class="black"><input type="text" id="email" name="email" value=""></td>
+					<td>
+						<div id="email_error" title="Thông báo">
+							Email không đúng định dạng. Vui lòng thử lại !
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>Điện thoại:</td>
+					<td class="black"><input type="number" id="phone" name="phone" value="" ></td>
+				</tr>
+				<tr>
+					<td>Địa chỉ</td>
+					<td class="black"><input type="text" id="address" name="address" value=""></td>
+				</tr>
+				<tr>
+					<td class="black-none-left"></td>
+					<td class="black-none-right"><button type="submit">Đăng ký</button></td>
+				</tr>
+			</table>
+		</form>
+	</main>
+	<footer></footer>
+</body>
+</html>

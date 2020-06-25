@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Lab_01_Jquery</title>
+
+	<style>
+		form{
+			margin: 20px 0;
+		}
+		form input, button{
+			padding: 5px;
+		}
+		table{
+			
+			margin-bottom: 20px;
+			border-collapse: collapse;
+		}
+		table td{
+			border-bottom: 1px solid black;
+			padding: 5px;
+			font-weight: bold;
+			font-family: arial;
+		}
+		.black ,.black-none-right{
+			border-left: 1px solid black;
+
+		}
+		
+		.black-none-right{
+			border-bottom: #fff;
+			border-left: 1px solid black;
+		}
+		.black-none-left{
+			border-bottom: #fff;
+		}
+		span{
+			color: red;
+		}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<script>
+		
+		$(document).ready(function(){
+			function isEmail(emailStr){
+				var pattern = /^[a-zA-Z0-9_\.]{5,32}@[a-z0-9]{2,}(\.[a-z0-9]{2,4})$/;
+				return pattern.test(emailStr);
+			}
+			$('#form-register').submit(function(event){
+				var username = $.trim($('#name').val());
+				var password = $.trim($('#pass').val());
+				var repeatPass = $.trim($('#repeatPass').val());
+				var email = $.trim($('#email').val());
+				var phone = $.trim($('#phone').val());
+				var address = $.trim($('#address').val());
+				
+				var check = true;
+				/*tên đăng nhập lớn hơn 4 ký tự*/
+				if(username == '' || username.length <= 4){
+					$('#name_error').text("Tên đăng nhập phải lớn hơn 4 ký tự");
+					event.preventDefault();
+				}else{
+					$('#name_error').text('').show();
+				}
+
+				/*Mật khẩu không được để trống*/
+				if(password == ''){
+					$('#pass_error').text("Mật khẩu không được để trống!").show();
+					event.preventDefault();
+				}else{
+					$('#pass_error').text('').show();
+				}
+
+				/*Mật khẩu nhập lại phải giống mật khẩu ở trên*/
+				if(repeatPass == ''){
+					$('#repeatPass_error').text("Mật khẩu nhập lại không được để trống").show();
+					event.preventDefault();
+				}else if(repeatPass != password){
+					$('#repeatPass_error').text("Mật khẩu nhập lại không đúng").show();
+				}else{
+					$('#repeatPass_error').text("").show;
+				}
+
+				/*Email không được để trống và phải đúng định dạng*/
+				if (email == '' || !isEmail(email)) {
+					$('#email_error').text("Email không được để trống hoặc không đúng định dạng").show();
+					event.preventDefault();
+				}else{
+					$('#email_error').text('').show();
+				}
+			});
+		});
+	</script>
+</head>
+<body>
+	<header></header>
+	<main>
+		<form action="javascript:alert('success !');" method="POST" id="form-register">
+			<table>
+				<tr>
+					<td style="">Tên đăng nhập:</td>
+					<td class="black"><input type="text" name="name" id="name" value=""></td>
+					<td><span id="name_error"></span></td>						
+				</tr>
+					
+				<tr>
+					<td>Mật khẩu:</td>
+					<td class="black"><input type="password" name="pass" id="pass" value=""></td>
+					<td><span id="pass_error"></span></td>
+				</tr>
+				<tr>
+					<td>Nhập lại mật khẩu:</td>
+					<td class="black"><input type="password" name="repeatPass" id="repeatPass" value=""></td>
+					<td><span id="repeatPass_error"></span></td>
+				</tr>	
+				<tr>
+					<td>Email:</td>
+					<td class="black"><input type="text" name="email" id="email" value=""></td>
+					<td><span id="email_error"></span></td>
+				</tr>
+				<tr>
+					<td>Điện thoại:</td>
+					<td class="black"><input type="number" name="phone" id="phone" value=""></td>
+					<td><span id="phone_error"></span></td>
+				</tr>
+				<tr>
+					<td>Địa chỉ:</td>
+					<td class="black"><input type="text" name="address" id="address" value=""></td>
+					<td><span id="address_error"></span></td>
+				</tr>
+				<tr>
+					<td class="black-none-left"></td>
+					<td class="black-none-right"><button id="register" type="submit">Đăng ký</button></td>
+					
+				</tr>
+			</table>
+		</form>		
+	</main>
+	<footer></footer>
+	
+</body>
+</html>
